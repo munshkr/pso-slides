@@ -1,0 +1,134 @@
+\documentclass[xcolor=pdftex,dvipsnames,usenames,table]{beamer}
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage{times}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{amsmath}
+
+\mode<presentation>
+{
+  \usetheme{Singapore}
+  \usecolortheme{default}
+  \setbeamercovered{transparent}
+
+  %\setbeamertemplate{part page}
+  %{
+    %\begin{centering}
+      %\begin{beamercolorbox}[sep=8pt,center]{part title}
+        %\usebeamerfont{part title}\insertpart\par
+      %\end{beamercolorbox}
+    %\end{centering}
+  %}
+}
+
+\title[]
+{Primitivas de Memoria Virtual para Porgramas de Usuario}
+
+\subtitle
+{Virtual Memory Primitives for User Programs}
+
+\author[]
+{
+	Leandro Liptak\\
+	Patricio Reboratti\\
+	Damián Silvani
+}
+
+\institute[UBA]
+{
+  Programación de Sistemas Operativos\\
+  Universidad de Buenos Aires
+}
+\date
+{9 de junio, 2011}
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Introducción}
+
+\begin{frame}{Memoria Virtual}
+  \begin{itemize}
+    \item Principalmente, permite
+      \begin{itemize}
+        \item Extender el espacio de direccionamiento
+        \item Compartir páginas entre procesos
+        \item Proteger páginas de código como \textit{sólo lectura}
+        \item Implementar \texttt{copy-on-write}
+      \end{itemize}
+
+    \item Puede tener otras aplicaciones\ldots
+    \begin{itemize}
+      \item Unix traduce un PF en un SIGSEGV, el usuario puede atraparlo
+      \item Se puede hacer algo mejor?
+    \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{Primitivas de Memoria Virtual}
+  
+  \begin{itemize}
+    \item \texttt{trap}
+    \item \texttt{prot1} y \texttt{protN}
+    \item \texttt{unprot}
+    \item \texttt{dirty}
+    \item \texttt{map2}
+  \end{itemize}
+\end{frame}
+
+\section{Aplicaciones}
+
+\begin{frame}{Memoria virtual compartida}
+\end{frame}
+
+\begin{frame}{Checkpointing concurrente}
+\end{frame}
+
+\begin{frame}{GC concurrente}
+\end{frame}
+
+\begin{frame}{GC generacional}
+\end{frame}
+
+\begin{frame}{Heap persistente}
+\end{frame}
+
+\begin{frame}{Extensión de direccionamiento}
+\end{frame}
+
+\begin{frame}{Compresión de páginas}
+\end{frame}
+
+\begin{frame}{Detección de heap overflow}
+\end{frame}
+
+\section{Consideraciones}
+
+\begin{frame}{Consistencia de la TLB}
+\end{frame}
+
+\begin{frame}{Tamaño de página óptimo}
+\end{frame}
+
+\begin{frame}{Acceso a páginas protegidas}
+\end{frame}
+
+\begin{frame}{Trap handlers sincrónicos}
+\end{frame}
+
+\section{Conclusiones}
+
+\begin{frame}{Conclusión}
+\end{frame}
+
+\end{document}
