@@ -142,6 +142,23 @@
 \end{frame}
 
 \begin{frame}{Compresión de páginas}
+\pause En una típica estructura de datos vinculada, en general encontramos:
+	\pause
+	\begin{itemize}
+		\item Punteros que apuntan a direcciones de memoria cercanas.
+		\item Punteros nulos.
+		\item Enteros pequeños.
+		\item Enteros en cero.
+	\end{itemize}
+
+\pause En términos de teoría de la información, la entropía de la palabra promedio es pequeña.
+
+\pause Implementando un GC para hacer que los punteros que se referencian entre sí estén en direcciones cercanas, se puede achicar la entropía por palabra hasta un valor tan chico como 7 bits.
+
+\pause De esta manera, una página de palabras de 32 bits puede comprimirse a aproximadamente un cuarto de su tamaño. De este modo en vez de guardar las páginas menos recientemente usadas en el disco, se podría comprimir y almacenar en otro lugar de la memoria principal.
+
+\pause Compresión en OS vs. Compresión controlada por el usuario.
+
 \end{frame}
 
 \begin{frame}{Detección de heap overflow}
@@ -165,6 +182,15 @@
 \end{frame}
 
 \begin{frame}{Tamaño de página óptimo}
+
+\pause Cuando un page-fault ocurre y hay que hacer un swap entre memoria y disco, el overhead en el handler del page-fault es ínfimo en comparación con el tiempo que tomará el acceso a memoria y disco. Por este motivo, las páginas en general son bastante grandes y el overhead en los handlers es alto.
+
+\pause La mayor parte de los algoritmos presentados en este paper utilizan page-faults que son completamente atendidos por el CPU. Entonces se vuelve importante reducir al mínimo el overhead en el handler.
+
+\pause Trabajado en el CPU, el tiempo que toma atender el fallo se puede calcular con una constante pequeña por el tamaño de la página. Por lo tanto, con páginas pequeñas el tiempo es menor. Pero cuanto más pequeña la página, más se nota el overhead (que es independiente del tamaño).
+
+\pause Para \texttt{prot} y \texttt{unprot} es recomendable usar páginas pequeñas. Para paginar a disco, es recomendable usar bloques de varias páginas contiguas.
+
 \end{frame}
 
 \begin{frame}{Acceso a páginas protegidas}
@@ -175,7 +201,7 @@
 	\item Proveyendo (SO) \texttt{map2} y utilizando \texttt{prot1} o \texttt{protN}
 	\item Proveyendo (SO) una \emph{syscall} para copiar desde/hacia una página protegida
 	\item Utilizando procesos en lugar de threads si el SO soporta compartición de memoria entre éstos
-	
+
 \end{itemize}
 
 \end{frame}
