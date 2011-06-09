@@ -168,6 +168,16 @@
 \end{frame}
 
 \begin{frame}{Acceso a páginas protegidas}
+\pause ¿Cómo lograr el acceso a páginas protegidas sólo por parte de algunos threads?
+
+\pause
+\begin{itemize}
+	\item Proveyendo (SO) \texttt{map2} y utilizando \texttt{prot1} o \texttt{protN}
+	\item Proveyendo (SO) una \emph{syscall} para copiar desde/hacia una página protegida
+	\item Utilizando procesos en lugar de threads si el SO soporta compartición de memoria entre éstos
+	
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Trap handlers sincrónicos}
