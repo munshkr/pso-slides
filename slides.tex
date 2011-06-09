@@ -95,6 +95,24 @@
 \end{frame}
 
 \begin{frame}{GC concurrente}
+\pause En un Garbage Collector incremental basado en copia como el Baker's GC, la protección de páginas y el manejo de fallos por parte del recolector brinda un mecanismo eficiente de sincronización entre los treads mutadores y el recolector.
+
+\pause Para esto (suponiento un solo thread mutador):
+	\pause
+	\begin{itemize}
+		\item Se crean dos mapeos de las páginas de \emph{from-space} con \textbf{\texttt{map2}}
+		\item Para cada página, se protege el mapeo que corresponde al thread del mutador con \textbf{\texttt{protN}}
+	\end{itemize}
+
+\pause Ante una referencia a un objeto en \emph{from-space} por parte del mutador, el thread recolector:
+	\pause
+	\begin{itemize}
+		\item Atrapa el fallo con \textbf{\texttt{trap}}
+		\item Copia los objetos "vivos" de dicha página a \emph{to-space}
+		\item Actualiza los punteros a dichos objetos en el thread mutador
+		\item Desprotege la páginas en cuestión con \textbf{\texttt{unprot}}
+	\end{itemize}
+
 \end{frame}
 
 \begin{frame}{GC generacional}
