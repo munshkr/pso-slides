@@ -46,7 +46,7 @@
 {9 de junio, 2011}
 
 % If you wish to uncover everything in a step-wise fashion, uncomment
-% the following command: 
+% the following command:
 \beamerdefaultoverlayspecification{<+->}
 
 \begin{document}
@@ -76,7 +76,6 @@
 \end{frame}
 
 \begin{frame}{Primitivas de Memoria Virtual}
-  
   \begin{itemize}
     \item \texttt{trap}
     \item \texttt{prot1} y \texttt{protN}
@@ -89,6 +88,24 @@
 \section{Aplicaciones}
 
 \begin{frame}{Memoria virtual compartida}
+  \begin{itemize}
+    \item Memoria compartida, distribuida en varias computadoras
+    \item Acceso a una memoria compartida coherente
+    \item Se divide el espacio en páginas:
+    \begin{itemize}
+      \item En escritura, si la página reside en otras memorias físicas, se
+            busca una copia actualizada y se invalida las otras copias.
+      \item Las de sólo lectura pueden estar en varias memorias físicas al mismo
+            tiempo.
+    \end{itemize}
+    \item Funciona similar a la virtualización con swapping:
+    \begin{itemize}
+      \item Un Page Fault ocurre cuando la página no se encuentra en la propia
+            memoria física.
+      \item El MMU puede buscar la página en el disco o en otra memoria física.
+    \end{itemize}
+    \item Necesita \texttt{trap}, \texttt{prot1}, \texttt{unprot} y \texttt{map2}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Checkpointing concurrente}
@@ -133,6 +150,18 @@
 \section{Consideraciones}
 
 \begin{frame}{Consistencia de la TLB}
+  \begin{itemize}
+    \item Cuando una página se hace más accesible, una TLB desactualizada a lo
+          sumo causa un \textit{cache miss}.
+    \item Pero al proteger una página, es necesario invalidar la TLB.
+    \item En multiprocesadores, el problema es más notorio:
+    \begin{itemize}
+      \item Se debe interrumpir cada procesador e invalidar sus TLBs.
+      \item Costoso por software
+    \end{itemize}
+    \item Solución: hacer \textit{flush} por lote
+    \item La mayoria de los algoritmos usan \texttt{protN}, no \texttt{prot1}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Tamaño de página óptimo}
